@@ -50,9 +50,9 @@ def list_events(
 ):
     query = db.query(Event)
 
-    if search:
+    if search and search.strip():
         query = query.filter(
-            Event.title.ilike(f"%{search}%")
+            Event.title.ilike(f"%{search.strip}%")
         )
 
     # Filter events by location
