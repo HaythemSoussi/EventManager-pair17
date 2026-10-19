@@ -53,6 +53,8 @@ def list_events(
     if search and search.strip():
         query = query.filter(
             Event.title.ilike(f"%{search.strip()}%")
+        
+        
         )
 
  
