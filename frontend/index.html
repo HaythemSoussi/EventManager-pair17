@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Event Manager</title>
+</head>
+<body>
+    <h1>Event Manager UI</h1>
+    <button type="button" onclick="loadEvents()">Fetch Events</button>
+    <p id="status" role="status" aria-live="polite"></p>
+    <ul id="eventList"></ul>
+
+    <script>
+        async function loadEvents() {
+            const eventList = document.getElementById('eventList');
+            const status = document.getElementById('status');
+            eventList.replaceChildren();
+            status.textContent = 'Loading events...';
+
+            try {
+                const response = await fetch('http://localhost:8000/events/');
+                if (!response.ok) {
+                    throw new Error(`The API returned HTTP ${response.status}`);
+                }
+
+                const events = await response.json();
+                if (!Array.isArray(events)) {
+                    throw new Error('The API response was not a list of events');
+                }
+
+                for (const event of events) {
+                    const item = document.createElement('li');
+                    item.textContent = `${event.title} - ${event.location}`;
+                    eventList.appendChild(item);
+                }
+                status.textContent = events.length
+                    ? `Loaded ${events.length} event(s).`
+                    : 'No events found.';
+            } catch (error) {
+                status.textContent = `Unable to load events: ${error.message}`;
+            }
+        }
+    </script>
+</body>
+</html>
