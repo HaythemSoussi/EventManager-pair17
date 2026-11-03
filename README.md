@@ -274,3 +274,35 @@ The API can be explored interactively through Swagger UI:
 ```text
 http://127.0.0.1:8000/docs
 ```
+
+## 11. Frontend and Docker Compose
+
+The static frontend is in `frontend/` and requests `GET http://localhost:8000/events/`.
+When opening the page from `http://localhost`, the browser applies CORS rules, so the
+API permits that local frontend origin.
+
+Build and run both services from the repository root:
+
+```powershell
+docker compose up --build -d
+```
+
+Open `http://localhost` and select **Fetch Events**. The backend API is also available
+at `http://localhost:8000/docs`. Compose stores the SQLite database in the named
+`events_sqlite_data` volume mounted at `/app/data`, leaving the backend application
+files in `/app` intact.
+
+Stop the services with:
+
+```powershell
+docker compose down
+```
+
+To keep the database volume, do not add `--volumes` (`-v`) to the command.
+
+## 12. CI/CD image publication
+
+The GitHub Actions workflow runs the test job on pushes and pull requests targeting
+`main`. On a push to `main`, it publishes the backend and frontend images to Docker
+Hub. Configure repository Actions secrets named `DOCKER_HUB_USERNAME` and
+`DOCKER_HUB_TOKEN` before relying on image publication.
