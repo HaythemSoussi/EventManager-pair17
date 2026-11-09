@@ -1,0 +1,21 @@
+services:
+  backend:
+    build: .
+    container_name: eventmanager_backend
+    ports:
+      - "8000:8000"
+    environment:
+      DATABASE_URL: sqlite:////app/data/events.db
+    volumes:
+      - events_sqlite_data:/app/data
+
+  frontend:
+    build: ./frontend
+    container_name: eventmanager_frontend
+    ports:
+      - "80:80"
+    depends_on:
+      - backend
+
+volumes:
+  events_sqlite_data:

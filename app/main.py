@@ -17,6 +17,13 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["http://localhost", "http://127.0.0.1"],
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
+
 
 Base.metadata.create_all(bind=engine)
 
