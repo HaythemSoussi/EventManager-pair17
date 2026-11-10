@@ -17,3 +17,6 @@ spec:
           image: smaalisahar/eventmanager-frontend:latest
           ports:
             - containerPort: 80
+          env:
+            - name: BACKEND_URL
+              value: http://backend-service:8000
