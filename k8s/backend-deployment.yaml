@@ -17,7 +17,7 @@ spec:
         runAsUser: 1000
       containers:
         - name: backend
-          image: smaalisahar/eventmanager-backend:latest
+          image: eventmanager-pair17-backend:latest
           ports:
             - containerPort: 8000
           env:

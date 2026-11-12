@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: frontend
-          image: smaalisahar/eventmanager-frontend:latest
+          image: eventmanager-pair17-frontend:latest
           ports:
             - containerPort: 80
           env:
