@@ -1,4 +1,6 @@
 
+from datetime import date, timedelta
+
 import pytest
 from fastapi.testclient import TestClient
 from app.main import app
@@ -12,7 +14,7 @@ def test_create_and_fetch_event_integration():
     response = client.post("/events/", json={
         "title": "DevOps Integration Conf",
         "location": "Constantine",
-        "date": "2026-12-01",
+        "date": (date.today() + timedelta(days=10)).isoformat(),
         "capacity": 200
     })
 
@@ -31,7 +33,7 @@ def test_register_participant_to_event_integration():
     e_resp = client.post("/events/", json={
         "title": "Cybersecurity Workshop",
         "location": "NTIC",
-        "date": "2026-11-15",
+        "date": (date.today() + timedelta(days=10)).isoformat(),
         "capacity": 50
     })
 
